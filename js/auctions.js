@@ -46,7 +46,7 @@ function generateItemCard(auction) {
   let card = document.createElement("div");
   card.classList.add("card");
   // Add data for the info modal to read
-  card.dataset.title = auction. ;
+  card.dataset.title = auction.title;
   card.dataset.detail = auction.detail;
   card.dataset.secondaryImage = auction.secondaryImage;
   card.dataset.id = auction.id;
