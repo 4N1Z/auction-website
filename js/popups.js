@@ -19,6 +19,15 @@ const signUpModalObject = new bootstrap.Modal(signUpModal);
 const signUpModalInput = signUpModal.querySelector("input");
 const signUpModalSubmit = signUpModal.querySelector(".btn-primary");
 
+
+// -- Login modal and logic --
+const loginModal = document.getElementById("login-modal");
+const loginModalObject = new bootstrap.Modal(loginModal);
+const loginModalInput = loginModal.querySelector("input");
+const loginModalPasswordInput = loginModal.querySelector("#password-input");
+const loginModalSubmit = loginModal.querySelector(".btn-primary");
+
+
 // Function called from index.html which creates anonymous account for user (or signs in if it already exists)
 export function autoSignIn() {
   onAuthStateChanged(auth, (user) => {
@@ -39,6 +48,55 @@ export function autoSignIn() {
     }
   });
 }
+
+// Function to show the login modal
+function showLoginModal() {
+  loginModalInput.value = "";
+  loginModalPasswordInput.value = "";
+  loginModalObject.show();
+}
+
+// Focus the username input once loginModal is visible
+loginModal.addEventListener("shown.bs.modal", () => {
+  loginModalInput.focus();
+});
+
+
+
+// Show the login modal when the "Sign in" button is clicked
+authButton.addEventListener("click", () => {
+  if (authButton.innerText == "Sign out") {
+    // Doesn't actually sign out, just gives the user the option to rename their account
+    authButton.innerText = "Sign in";
+    document.getElementById("username-display").innerText = "";
+  } else {
+    showLoginModal();
+  }
+});
+
+// Login can be triggered either by clicking the submit button or by pressing enter
+loginModalSubmit.addEventListener("click", () => {
+  login();
+});
+loginModalInput.addEventListener("keydown", (event) => {
+  if (event.key == "Enter") {
+    login();
+  }
+});
+
+// Function that handles login logic
+function login() {
+  let username = loginModalInput.value;
+  let password = loginModalPasswordInput.value;
+
+  // Perform necessary login actions, such as checking the username and password in the database
+
+  // If login is successful, update the UI and close the login modal
+  authButton.innerText = "Sign out";
+  document.getElementById("username-display").innerText = "Hi " + username;
+  loginModalObject.hide();
+}
+
 
 // Only shows signUpModal if the user is not signed in. Otherwise, it pretends to sign out
 authButton.addEventListener("click", () => {
@@ -70,14 +128,24 @@ signUpModalInput.addEventListener("keydown", (event) => {
 // Function that handles sign up logic
 function signUp() {
   let username = signUpModalInput;
+  let password = passwordInput.value;
+
   let user = auth.currentUser;
+
+  // setDoc(doc(db, "users", user.uid), { name: username, password: password });
+
+  // let user = auth.currentUser;
+  // updateProfile(user, { displayName: username });
+
   updateProfile(user, { displayName: username.value });
-  setDoc(doc(db, "users", user.uid), { name: username.value, admin: false });
+  setDoc(doc(db, "users", user.uid), { name: username.value, admin: false, password:password });
   console.debug("signUp() write to users/${auth.currentUser.uid}");
+
   authButton.innerText = "Sign out";
   document.getElementById("username-display").innerText =
     "Hi " + username.value;
   username.classList.add("is-valid");
+
   setTimeout(() => {
     signUpModalObject.hide();
     username.classList.remove("is-valid");

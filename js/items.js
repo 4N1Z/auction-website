@@ -58,11 +58,11 @@ let items = [
     endTime: "2023-04-25T00:25:00+00:00",
   },
   {
-    primaryImage: "",
-    title: "",
-    subtitle: "",
-    detail: "",
-    secondaryImage: "",
+    primaryImage: "https://cataas.com/cat/cute?random=0",
+    title: "ANIZ B N",
+    subtitle: " YES IT CMAEEE",
+    detail: "fgsdfgfdg",
+    secondaryImage: "https://cataas.com/cat/cute?random=0",
     amount: 99,
     endTime: "2023-04-25T00:30:00+00:00",
   },
@@ -113,6 +113,19 @@ let items = [
   },
 ];
 
+const locations = [
+  "New York",
+  "London",
+  "Paris",
+  "Tokyo",
+  "Sydney",
+  "Berlin",
+  "Rome",
+  "Toronto",
+  "Moscow",
+  "Dubai"
+];
+
 // Fill missing fields with random information
 async function generateRandomItemData(items) {
   // Random cat names
@@ -136,15 +149,21 @@ async function generateRandomItemData(items) {
       });
     }
   );
-  // Random cat images
+  // Random cat images and locations
   for (let i = 0; i < items.length; i++) {
+    // items[i].primaryImage ||= "https://example.com/stock-image?random=" + i;
+    // items[i].secondaryImage ||= "https://example.com/stock-image?random=" + i;
     items[i].primaryImage ||= "https://cataas.com/cat/cute?random=" + i;
     items[i].secondaryImage ||= "https://cataas.com/cat/cute?random=" + i;
+    console.log("INSIDE GETTING_LOCATION()", items[i].location)
+    items[i].location = locations[Math.floor(Math.random() * locations.length)];
+    // console
   }
   return items;
 }
 
 export async function getItems() {
+
   items = isDemo ? await generateRandomItemData(items) : items;
   // Insert the index from the unsorted array as the item ID
   items.forEach((item, idx) => (item.id = idx));
@@ -153,4 +172,5 @@ export async function getItems() {
   // Sort items in ascending end time
   items.sort((a, b) => a["endTime"] - b["endTime"]);
   return items;
+
 }
