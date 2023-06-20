@@ -128,7 +128,7 @@ signUpModalInput.addEventListener("keydown", (event) => {
 // Function that handles sign up logic
 function signUp() {
   let username = signUpModalInput;
-  let password = passwordInput.value;
+  // let password = passwordInput.value;
 
   let user = auth.currentUser;
 
@@ -138,7 +138,7 @@ function signUp() {
   // updateProfile(user, { displayName: username });
 
   updateProfile(user, { displayName: username.value });
-  setDoc(doc(db, "users", user.uid), { name: username.value, admin: false, password:password });
+  setDoc(doc(db, "users", user.uid), { name: username.value, admin: false});
   console.debug("signUp() write to users/${auth.currentUser.uid}");
 
   authButton.innerText = "Sign out";
