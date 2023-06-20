@@ -27,7 +27,19 @@ const loginModalInput = loginModal.querySelector("input");
 const loginModalPasswordInput = loginModal.querySelector("#password-input");
 const loginModalSubmit = loginModal.querySelector(".btn-primary");
 
+// Get the dropdown items
+const dropdownItems = document.querySelectorAll(".dropdown-item");
 
+// Attach click event listener to each dropdown item
+dropdownItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    // Get the text of the clicked dropdown item
+    const location = item.innerText;
+    
+    // Display an alert with the selected location
+    alert("Selected Location: " + location);
+  });
+});
 // Function called from index.html which creates anonymous account for user (or signs in if it already exists)
 export function autoSignIn() {
   onAuthStateChanged(auth, (user) => {
