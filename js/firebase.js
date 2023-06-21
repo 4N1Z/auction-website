@@ -25,6 +25,7 @@ const firebaseConfig = {
 // AIzaSyB1ITe0x0UhM_HGknrVRW08dRau9vLBY4M
 // projectId: "auction-website-2e890",
 // Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 console.log(db);
