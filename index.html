@@ -24,9 +24,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+ 
 </head>
 
 <body>
+  <script>
+    function handleClickForLocation(event) {
+      const location = event.target.innerText;
+      sessionStorage.setItem("location", location);
+      window.location.reload();
+    }
+  </script>
   <!-- Navbar -->
   <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
@@ -41,9 +49,11 @@
             Location
           </button>
           <ul class="dropdown-menu" aria-labelledby="location-dropdown">
+            <li><a onclick="handleClickForLocation(event)" class="dropdown-item drop1" href="#">all</a></li>
             <li><a onclick="handleClickForLocation(event)" class="dropdown-item drop1" href="#">Trivandrum</a></li>
             <li><a onclick="handleClickForLocation(event)" class="dropdown-item drop2" href="#">Kozhikode</a></li>
             <li><a onclick="handleClickForLocation(event)" class="dropdown-item drop3" href="#">Kochi</a></li>
+
             <!-- Add more location options here -->
           </ul> 
          </div>
@@ -174,21 +184,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <!-- Create anonymous account -->
   <script type="module">
-    function handleClick(event) {
-      // Prevent the default link behavior
-      event.preventDefault();
-      // Get the clicked dropdown item
-      const dropdownItem = event.target.value;
-      autoSignIn();
-      setupItems(dropdownItem)
-    }
-
-  </script>
-  <script type="module">
+    
     import { autoSignIn } from "./js/popups.js";
     import { setupItems } from "./js/auctions.js";
+    const currentLocation = sessionStorage.getItem("location");
     autoSignIn();
-    setupItems();
+    if (currentLocation) {
+     setupItems(currentLocation)
+    }else{
+      setupItems()
+    }
   </script>
 </body>
 

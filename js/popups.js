@@ -40,6 +40,11 @@ dropdownItems.forEach((item) => {
     alert("Selected Location: " + location);
   });
 });
+export function handleClickForLocation(event) {
+  var location = event.target.innerHTML;
+  localStorage.setItem("location", location);
+  window.location.reload();
+}
 // Function called from index.html which creates anonymous account for user (or signs in if it already exists)
 export function autoSignIn() {
   onAuthStateChanged(auth, (user) => {

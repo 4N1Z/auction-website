@@ -223,7 +223,7 @@ function dataListenerCallback(data) {
 
 export function dataListener(callback, location) {
   let locations= [];
-  if (location == "none") {
+  if (location == "all") {
     locations = ["Trivandrum", "Malappuram", "Kollam"];
   } else {
     locations = [location];
@@ -246,7 +246,7 @@ export function dataListener(callback, location) {
 }
 
 
-export function setupItems(location="none") {
+export function setupItems(location="all") {
   dataListener(dataListenerCallback, location);
   setInterval(setClocks, 100);
 }
