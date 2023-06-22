@@ -50,6 +50,7 @@ function generateItemCard(auction) {
   card.dataset.detail = auction.detail;
   card.dataset.secondaryImage = auction.secondaryImage;
   card.dataset.id = auction.id;
+  card.dataset.location = auction.location;
   col.appendChild(card);
 
   let image = document.createElement("img");
@@ -91,6 +92,9 @@ function generateItemCard(auction) {
 
   let timeRow = document.createElement("tr");
   tableBody.appendChild(timeRow);
+  
+  let locationRow = document.createElement("tr");
+  tableBody.appendChild(locationRow);
 
   let timeTitle = document.createElement("th");
   timeTitle.innerHTML = "Time left:";
@@ -102,16 +106,16 @@ function generateItemCard(auction) {
   timeRow.appendChild(time);
   
   // add Location
-  let location = document.createElement("p");
+  let location = document.createElement("td");
   location.classList.add("card-location");
-  const customLocations = ["Trivandrum", "Kochi", "Kozhikode"];
-  const randomIndex = Math.floor(Math.random() * customLocations.length);
+  locationRow.appendChild(location);
+  // body.appendChild(location);
+  // const customLocations = ["Trivandrum", "Kochi", "Kozhikode"];
+  // const randomIndex = Math.floor(Math.random() * customLocations.length);
   
-  const boldText = document.createElement("strong");
-  boldText.innerText = "Location :  ";
-  location.appendChild(boldText);
-  location.innerHTML += customLocations[randomIndex];
-  body.appendChild(location);
+  // const boldText = document.createElement("strong");
+  // boldText.innerText = "Location :  ";
+  // location.appendChild(boldText);
 
   // Apply drop down menu for filtering the location
   // const locationDropdown = document.getElementById("location-dropdown");
@@ -183,6 +187,8 @@ function dataListenerCallback(data) {
     // Update current bid
     let currentBid = card.querySelector(".current-bid");
     // Extract bid data
+    let locationhtml = card.querySelector(".card-location");
+    locationhtml.innerHTML = "Loc : " + item.location;
     let bidCount = Object.keys(bids).length - 1;
     let currPound = bids[bidCount].amount.toFixed(2);
     // Add bid data to HTML
@@ -215,10 +221,15 @@ function dataListenerCallback(data) {
 
 }
 
-export function dataListener(callback) {
+export function dataListener(callback, location) {
+  let locations= [];
+  if (location == "none") {
+    locations = ["Trivandrum", "Malappuram", "Kollam"];
+  } else {
+    locations = [location];
+  }
   // Listen for updates in active auctions
   onSnapshot(doc(db, "auction", "items"), (doc) => {
-    console.log(doc.data())
     console.debug("dataListener() read from auction/items");
     // Parse flat document data into structured Object
     let data = {};
@@ -226,13 +237,16 @@ export function dataListener(callback) {
       let [item, bid] = key.split("_").map((i) => Number(i.match(/\d+/)));
       data[item] = data[item] || {};
       data[item][bid] = details;
-      // console.log(data[item][bid])
+      // Add random location to the data dictionary
+      const randomIndex = Math.floor(Math.random() * locations.length);
+      data[item][bid].location = locations[randomIndex];
     }
     callback(data);
   });
 }
 
-export function setupItems() {
-  dataListener(dataListenerCallback);
+
+export function setupItems(location="none") {
+  dataListener(dataListenerCallback, location);
   setInterval(setClocks, 100);
 }
