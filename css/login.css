@@ -6,6 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #f5f5f5;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
 /*   
 #login_form{
@@ -51,6 +52,10 @@ button{
   #form_content_container {
     margin-top: 20px;
   }
+  .regDesign{
+    display: flex;
+    flex-direction: column;
+  }
  
   /* input[type="text"],
   input[type="email"],
@@ -74,12 +79,20 @@ button{
     border-radius: 4px;
   }
   
-  button {
+button {
     background-color: #4caf50;
     color: #fff;
     cursor: pointer;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    
   }
-  
+  a{
+    text-decoration: none;
+    text-transform: uppercase;
+
+  }
   p {
     text-align: center;
   }
