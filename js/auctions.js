@@ -224,7 +224,7 @@ function dataListenerCallback(data) {
 export function dataListener(callback, location) {
   let locations= [];
   if (location == "all") {
-    locations = ["Trivandrum", "Malappuram", "Kollam"];
+    locations = ["Trivandrum", "Kozhikode", "Kochi"];
   } else {
     locations = [location];
   }

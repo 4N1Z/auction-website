@@ -15,8 +15,8 @@ const firebaseConfig = {
 // const firebaseConfig = {
 //   apiKey: "AIzaSyB1ITe0x0UhM_HGknrVRW08dRau9vLBY4M",
 //   authDomain: "auction-website-2e890.firebaseapp.com",
-//   databaseURL: "https://auction-website-b12fc.firebaseio.com",
-//   projectId: "auction-website-b12fc",
+//   databaseURL: "https://auction-website-2e890.firebaseio.com",
+//   projectId: "auction-website-2e890",
 //   storageBucket: "auction-website-2e890.appspot.com",
 //   messagingSenderId: "828406663883",
 //   appId: "1:828406663883:web:334e550bf253a01386694e"

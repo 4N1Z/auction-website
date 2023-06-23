@@ -1,0 +1,11 @@
+{
+  "name": "auction-website",
+  "version": "1.0.0",
+  "description": "auctionLogin",
+  "main": "index.js",
+  "scripts": {
+    "test": "run dev"
+  },
+  "author": "",
+  "license": "ISC"
+}

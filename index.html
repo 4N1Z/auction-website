@@ -57,12 +57,13 @@
             <!-- Add more location options here -->
           </ul> 
          </div>
-        <a class="navbar-brand" id="username-display"></a>
+         <a id="username-display" class="navbar-brand"></a>
         <a id="admin-button" class="btn btn-secondary me-2" href="admin.html" role="button" style="display: none">
           Admin
         </a>
         <button id="auth-button" class="btn btn-secondary me-2">
-          Sign up
+          signout
+        
         </button>
       </div>
     </div>
@@ -94,31 +95,25 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 id="login-modal-title" class="modal-title">
-            Sign up for Markatplace Auction
+            Confirm your name
           </h5>
         </div>
         <div class="modal-body">
-          <p>
+          <!-- <p>
             We use anonymous authentication provided by Google. Your account
             is attached to your device signature.
-          </p>
-          <p>The username just lets us know who's bidding!</p>
-          <form onsubmit="return false;">
+          </p> -->
+          <p>Please enter your name once again for confirmation</p>
+          <form onsubmit="return true;">
             <div class="form-floating mb-3">
               <input type="username" class="form-control" id="username-input" placeholder="username" />
               <label for="username-input">Username</label>
-
-            </div>
-
-            <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="password-input" placeholder="password" />
-              <label for="password-input">Password</label>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancel">
+          <!-- <button id = "logout-btn"type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Cancel">
             Cancel
-          </button>
+          </button> -->
           <button type="submit" class="btn btn-primary">Sign up</button>
         </div>
         </form>
@@ -180,6 +175,7 @@
       </div>
     </div>
   </div>
+  <script src="./js//login.js"></script>
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <!-- Create anonymous account -->
@@ -189,6 +185,7 @@
     import { setupItems } from "./js/auctions.js";
     const currentLocation = sessionStorage.getItem("location");
     autoSignIn();
+    
     if (currentLocation) {
      setupItems(currentLocation)
     }else{

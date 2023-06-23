@@ -46,25 +46,88 @@ export function handleClickForLocation(event) {
   window.location.reload();
 }
 // Function called from index.html which creates anonymous account for user (or signs in if it already exists)
+// export function autoSignIn() {
+//   onAuthStateChanged(auth, (user) => {
+//     if (user && user.displayName != null) {
+//       // If user has an anonymous account and a displayName, treat them as signed in
+//       const authButton = document.getElementById("auth-button");
+//       if (authButton) {
+//         authButton.innerText = "Logout";
+//         document.getElementById("username-display").innerText =
+//           "Hi " + user.displayName;
+//           console.log(user.displayName);
+//       }
+
+//       // If user is admin, display the admin button
+//       getDoc(doc(db, "users", user.uid)).then((user) => {
+//         if ("admin" in user.data()) {
+//           const adminButton = document.getElementById("admin-button");
+//           if (adminButton) {
+//             adminButton.style.display = "inline-block";
+//           }
+//         }
+//       });
+//     } else {
+//       // Automatically create an anonymous account if user doesn't have one
+//       signInAnonymously(auth);
+//     }
+//   });
+// }
+
 export function autoSignIn() {
+  const authButton = document.getElementById("auth-button");
+  const usernameDisplay = document.getElementById("username-display");
+  const logoutButton = document.getElementById("logout-btn");
+  console.log(usernameDisplay)
+
   onAuthStateChanged(auth, (user) => {
+  
     if (user && user.displayName != null) {
-      // If user has an anonymous account and a displayName, treat them as signed in
+
+      // if (user.authButton== "") {
+      //   alert('enter again')
+  
+      // } else {
+      //     // User is already signed in, display username and change button text to "Sign out"
+      //   usernameDisplay.innerText = "Hi " + user.displayName;
+      //   authButton.innerText = "Sign out";
+
+      // }
+      // usernameDisplay.innerText = "Hi " + user.displayName;
       authButton.innerText = "Sign out";
-      document.getElementById("username-display").innerText =
-        "Hi " + user.displayName;
-      // If user is admin, display the admin button
-      getDoc(doc(db, "users", user.uid)).then((user) => {
-        if ("admin" in user.data()) {
-          adminButton.style.display = "inline-block";
-        }
-      });
+
+   
+    } else if (user) {
+        console.log(user);
+        alert("Name not entered ! Enter again")
+      
+    }else {
+      // User is not signed in, change button text to "Sign up"
+      // usernameDisplay.innerText = "";
+      return;
+      authButton.innerText = "Sign up";
+    }
+  });
+
+  // Add click event listener to the button
+  authButton.addEventListener("click", () => {
+    const user = auth.currentUser;
+    if (user) {
+      // User is signed in, sign out and redirect to login.js
+      signOut(auth)
+        .then(() => {
+          window.location.href = "login.html";
+        })
+        .catch((error) => {
+          console.log("Sign out error:", error);
+        });
     } else {
-      // Automatically create an anonymous account if user doesn't have one
-      signInAnonymously(auth);
+      // User is not signed in, redirect to login.js
+      window.location.href = "login.html";
     }
   });
 }
+
 
 // Function to show the login modal
 function showLoginModal() {
