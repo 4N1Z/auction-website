@@ -55,6 +55,14 @@ function generateItemCard(auction) {
 
   let image = document.createElement("img");
   image.classList.add("card-img-top");
+  // if (customImage) {
+  //   image.src = URL('https://picsum.photos/200');
+  // } else {
+  //   image.src = auction.primaryImage;
+  // }
+  // image.src = URL("https://picsum.photos/");
+  image.src = `https://picsum.photos/200/300?random=${Math.random()}`;
+  // image.src = auction.primaryImage;
   card.appendChild(image);
 
   let body = document.createElement("div");
@@ -208,7 +216,7 @@ function dataListenerCallback(data) {
     } else {
       card.dataset.endTime = item.endTime.toMillis();
     }
-    card.querySelector(".card-img-top").src = item.primaryImage;
+    // card.querySelector(".card-img-top").src = item.primaryImage;
     card.querySelector(".title").innerText = item.title;
     card.querySelector(".card-subtitle").innerText = item.subtitle;
      
