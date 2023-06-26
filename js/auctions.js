@@ -48,7 +48,8 @@ function generateItemCard(auction) {
   // Add data for the info modal to read
   card.dataset.title = auction.title;
   card.dataset.detail = auction.detail;
-  card.dataset.secondaryImage = auction.secondaryImage;
+  // card.dataset.secondaryImage = auction.secondaryImage;
+  // card.dataset.secondaryImage = `https://picsum.photos/200/300?random=${Math.random()}`;
   card.dataset.id = auction.id;
   card.dataset.location = auction.location;
   col.appendChild(card);
@@ -117,40 +118,6 @@ function generateItemCard(auction) {
   let location = document.createElement("td");
   location.classList.add("card-location");
   locationRow.appendChild(location);
-  // body.appendChild(location);
-  // const customLocations = ["Trivandrum", "Kochi", "Kozhikode"];
-  // const randomIndex = Math.floor(Math.random() * customLocations.length);
-  
-  // const boldText = document.createElement("strong");
-  // boldText.innerText = "Location :  ";
-  // location.appendChild(boldText);
-
-  // Apply drop down menu for filtering the location
-  // const locationDropdown = document.getElementById("location-dropdown");
-  // console.log(locationDropdown) 
-  // const cards = document.getElementsByClassName("card");
-
-  // Add event listener to location dropdown items
-  // const locationItems = locationDropdown.querySelectorAll(".dropdown-item");
-  // for (let i = 0; i < locationItems.length; i++) {
-  //   locationItems[i].addEventListener("click", function() {
-  //     const selectedLocation = this.innerText;
-  //     filterCardsByLocation(selectedLocation);
-  //   });
-  // }
-  // Function to filter cards by location
-  // function filterCardsByLocation(location) {
-  //   for (let i = 0; i < cards.length; i++) {
-  //     const cardLocation = cards[i].querySelector(".card-location").innerText;
-  //     if (cardLocation === location) {
-  //       cards[i].style.display = "block"; // Show card
-  //     } else {
-  //       cards[i].style.display = "none"; // Hide card
-  //     }
-  //   }
-  // }
-
-
 
   // Auction actions
   let buttonGroup = document.createElement("div");
@@ -198,9 +165,13 @@ function dataListenerCallback(data) {
     let locationhtml = card.querySelector(".card-location");
     locationhtml.innerHTML = "Loc : " + item.location;
     let bidCount = Object.keys(bids).length - 1;
-    let currPound = bids[bidCount].amount.toFixed(2);
+    // let currPound = bids[bidCount].amount.toFixed(2);
+    let minAmount = 1; // Minimum bid amount
+    let maxAmount = 100; // Maximum bid amount
+    let currPound = (Math.random() * (maxAmount - minAmount) + minAmount).toFixed(2);
+    
     // Add bid data to HTML
-    currentBid.innerHTML = `£${numberWithCommas(currPound)} [${bidCount} bid${
+    currentBid.innerHTML = `Rs. ${numberWithCommas(currPound)} [${bidCount} bid${
       bidCount != 1 ? "s" : ""
     }]`;
     // Update everything else
@@ -223,7 +194,8 @@ function dataListenerCallback(data) {
     card.dataset.title = item.title;
     card.dataset.detail = item.detail;
     card.dataset.location = item.location;
-    card.dataset.secondaryImage = item.secondaryImage;
+    // card.dataset.secondaryImage = `https://picsum.photos/200/300?random=${Math.random()}`;
+    // card.dataset.secondaryImage = col.image.src;
     card.dataset.id = item.id;
   }
 
