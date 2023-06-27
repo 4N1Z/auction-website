@@ -82,30 +82,24 @@ export function autoSignIn() {
 
   onAuthStateChanged(auth, (user) => {
   
-    if (user && user.displayName != null) {
+    if (user.displayName == null) {
+      authButton.innerText = "Enter name";
+      alert("Name not entered ! Enter again");
 
-      // if (user.authButton== "") {
-      //   alert('enter again')
-  
-      // } else {
-      //     // User is already signed in, display username and change button text to "Sign out"
-      //   usernameDisplay.innerText = "Hi " + user.displayName;
-      //   authButton.innerText = "Sign out";
-
-      // }
-      // usernameDisplay.innerText = "Hi " + user.displayName;
-      authButton.innerText = "Sign out";
-
+      // authButton.innerText = "Sign out";
    
-    } else if (user) {
-        console.log(user);
-        alert("Name not entered ! Enter again")
-      
-    }else {
+    } else {
       // User is not signed in, change button text to "Sign up"
       // usernameDisplay.innerText = "";
+      authButton.innerText = "sign out ";
+      if (authButton.innerText.length!=0){
+        // usernameDisplay.innerText = "";
+        usernameDisplay.innerText = "Hi " + user.displayName;
+  
+          
+        }
+  
       return;
-      authButton.innerText = "Sign up";
     }
   });
 
