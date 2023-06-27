@@ -81,13 +81,20 @@ export function autoSignIn() {
   console.log(usernameDisplay)
 
   onAuthStateChanged(auth, (user) => {
+
+    
+    const adminButton = document.getElementById("admin-button");
+    if (adminButton) {
+      adminButton.style.display = "inline-block";
+    }
+ 
   
     if (user.displayName == null) {
       authButton.innerText = "Enter name";
       alert("Name not entered ! Enter again");
 
       // authButton.innerText = "Sign out";
-   
+  
     } else {
       // User is not signed in, change button text to "Sign up"
       // usernameDisplay.innerText = "";
