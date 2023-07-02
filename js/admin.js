@@ -31,8 +31,8 @@ function createRow(id) {
 }
 
 function generateRandomName() {
-  const firstNames = ["Ram", "Rahul", "Vasu", "Sophia", "Appi", "Sasikala", "Ahmed"];
-  const lastNames = ["Krishna", "Mathayi", "Mathan", "Biju", "Kumar", "Clark", "Davis"];
+  const firstNames = ["Ram", "Rahul", "Vasu", "Sophia", "Mark", "George", "Ahmed"];
+  const lastNames = ["Krishna", "Son", "Nero", "", "Kumar", "Clark", "Davis"];
 
   const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
   const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
