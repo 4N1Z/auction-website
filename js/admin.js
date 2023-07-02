@@ -30,6 +30,16 @@ function createRow(id) {
   return row;
 }
 
+function generateRandomName() {
+  const firstNames = ["Ram", "Rahul", "Vasu", "Sophia", "Appi", "Sasikala", "Ahmed"];
+  const lastNames = ["Krishna", "Mathayi", "Mathan", "Biju", "Kumar", "Clark", "Davis"];
+
+  const randomFirstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const randomLastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+
+  return `${randomFirstName} ${randomLastName}`;
+}
+
 function dataListenerCallback(data) {
   // Use structured Object to populate the row for each item
   for (const [id, bids] of Object.entries(data)) {
@@ -39,9 +49,15 @@ function dataListenerCallback(data) {
       table.appendChild(row);
     }
     // Extract bid data
+    let minAmount = 1; // Minimum bid amount
+    let maxAmount = 100; // Maximum bid amount
+    let currPound = (Math.random() * (maxAmount - minAmount) + minAmount).toFixed(2);
+    
     let bidCount = Object.keys(bids).length - 1;
-    row.children[1].innerText = bids[0].title;
-    row.children[2].innerText = `£${bids[bidCount].amount.toFixed(2)}`;
+    row.children[1].innerText = generateRandomName();
+    // row.children[1].innerText = bids[0].title;
+    // row.children[2].innerText = `Rs.${bids[bidCount].amount.toFixed(2)}`;
+    row.children[2].innerText = `Rs.${currPound}`;
     row.children[3].innerText = bidCount;
     if (bids[bidCount].uid) {
       getDoc(doc(db, "users", bids[bidCount].uid)).then((user) => {
